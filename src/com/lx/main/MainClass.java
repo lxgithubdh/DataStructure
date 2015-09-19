@@ -1,9 +1,11 @@
 package com.lx.main;
 
 
-import com.lx.runtime.Compiler;
+import com.lx.looper.Looper;
+import com.lx.looper.Message;
+import com.lx.looper.Result;
 
-import java.io.File;
+import java.util.concurrent.Future;
 
 /**
  * 运行入口
@@ -14,16 +16,17 @@ public class MainClass {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
-        File file = new File("d:\\ValueClass.java");
-        Compiler compiler = new Compiler();
-        try {
-            compiler.compile(file);
-            String result = compiler.run("com.test.ValueClass");
-            System.out.println(result);
-        } catch (Exception e) {
-            e.printStackTrace();
+	public static void main(String[] args) throws Exception{
+        Looper looper = Looper.getInstance();
+        Message message = new Message();
+        for (int i = 0; i < 30; i++) {
+            message.what = i;
+            looper.sendMessage(message);
+            System.out.println(i);
+            Thread.sleep(500);
         }
+        Future<Result> future = looper.sendMessageWithResult(message);
+        System.out.println(future.get());
     }
 
 }

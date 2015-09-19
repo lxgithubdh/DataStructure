@@ -1,4 +1,4 @@
-package com.lx.util;
+package com.lx.reflects.proxy;
 
 import com.lx.interfaces.IStopWatch;
 
