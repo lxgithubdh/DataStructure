@@ -1,5 +1,7 @@
 package com.lx.structure.tree;
 
+import com.lx.common.interfaces.IVisitor;
+
 import java.util.Queue;
 import java.util.Stack;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -10,13 +12,17 @@ import java.util.concurrent.ArrayBlockingQueue;
  */
 public class Traversal {
 
+    //访问结点接口
+    private IVisitor visit;
+
 
     /**
      * 对树进行遍历
      * @param tree
      * @param way 遍历方式，0：先序；1：中序；2：后序
      */
-    public void traversal(Tree tree,int way){
+    public void traversal(Tree tree,int way,IVisitor visit){
+        this.visit = visit;
         switch (way){
             case 0:preOrder(tree.root);
                 break;
@@ -175,6 +181,6 @@ public class Traversal {
      * @param node
      */
     private void dealNode(TreeNode node){
-        System.out.print(node.value+", ");
+        visit.visit(node);
     }
 }

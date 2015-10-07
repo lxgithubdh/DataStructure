@@ -1,12 +1,14 @@
 package com.lx.structure.tree;
 
+import com.lx.common.util.Node;
+
 /**
  * 二叉树节点
  * Created by lx on 2015/9/20.
  */
-public class TreeNode<T> {
-    //值
-    public T value;
+public class TreeNode<T> extends Node{
+
+
     //父节点
     public TreeNode parent;
     //左孩子
@@ -16,6 +18,6 @@ public class TreeNode<T> {
 
 
     public TreeNode(T value){
-        this.value = value;
+        super(value);
     }
 }
