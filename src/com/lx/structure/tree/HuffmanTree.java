@@ -15,9 +15,9 @@ public class HuffmanTree {
      * @param map
      * @return
      */
-    public Tree createHuffmanTree(Map map){
+    public BinaryTree createHuffmanTree(Map map){
         TreeSet<HuffmanNode> set = new TreeSet();      //创建有序集合
-        Tree tree = new Tree();
+        BinaryTree tree = new BinaryTree();
         for (Object obj : map.entrySet()) {
             Map.Entry entry = (Map.Entry)obj;
             HuffmanNode node = new HuffmanNode(        //遍历map，构造哈夫曼树结点
@@ -43,7 +43,7 @@ public class HuffmanTree {
      * 哈夫曼树结点，包含值和权重
      * @param <T>
      */
-    private class HuffmanNode<T> extends TreeNode implements Comparable{
+    private class HuffmanNode<T> extends BinaryTreeNode implements Comparable{
 
 
         //权重

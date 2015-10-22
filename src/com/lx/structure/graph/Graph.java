@@ -19,7 +19,11 @@ public class Graph {
 
 
     public Graph(Set set){
-        this.graph = new HashSet<GraphNode>(set);
+        if(null==set){
+            this.graph = new HashSet<GraphNode>();
+        }else {
+            this.graph = new HashSet<GraphNode>(set);
+        }
     }
 
 
@@ -29,6 +33,7 @@ public class Graph {
      * @return
      */
     public boolean addNode(GraphNode node){
+        graph.add(node);
         for(Object o : node.arcList){
             ArcNode arc = (ArcNode)o;
             addArc(arc.adjNode,node,arc.weight);
@@ -105,6 +110,21 @@ public class Graph {
 
 
     /**
+     * 根据tag返回结点对象
+     * @param tag
+     * @return
+     */
+    public GraphNode getNodeByTag(int tag){
+        for(GraphNode node : graph){
+            if(tag==node.tag){
+                return node;
+            }
+        }
+        return null;
+    }
+
+
+    /**
      * 获取邻接矩阵
      * @return
      */
@@ -114,7 +134,7 @@ public class Graph {
         for(GraphNode node : graph){
             ArrayList<ArcNode> list = node.arcList;
             for(ArcNode arc : list){
-                result[node.num][arc.adjNode.num] = arc.weight;
+                result[node.tag][arc.adjNode.tag] = arc.weight;
             }
         }
         return result;

@@ -21,7 +21,7 @@ public class Traversal {
      * @param tree
      * @param way 遍历方式，0：先序；1：中序；2：后序
      */
-    public void traversal(Tree tree,int way,IVisitor visit){
+    public void traversal(BinaryTree tree,int way,IVisitor visit){
         this.visit = visit;
         switch (way){
             case 0:preOrder(tree.root);
@@ -48,7 +48,7 @@ public class Traversal {
      * 先序遍历，递归处理结点值
      * @param node
      */
-    private void preOrder(TreeNode node){
+    private void preOrder(BinaryTreeNode node){
         if(null!=node){
             dealNode(node);
             preOrder(node.leftChild);
@@ -61,9 +61,9 @@ public class Traversal {
      * 先序遍历，非递归方式
      * @param node
      */
-    private void preOrderNoRec(TreeNode node){
-        Stack<TreeNode> stack = new Stack<TreeNode>();
-        TreeNode temp = node;
+    private void preOrderNoRec(BinaryTreeNode node){
+        Stack<BinaryTreeNode> stack = new Stack<BinaryTreeNode>();
+        BinaryTreeNode temp = node;
         while(null!=temp||!stack.empty()){
             if(null!=temp){
                 dealNode(temp);        //访问结点
@@ -80,7 +80,7 @@ public class Traversal {
      * 中序递归遍历
      * @param node
      */
-    private void inOrder(TreeNode node){
+    private void inOrder(BinaryTreeNode node){
         if(null!=node){
             inOrder(node.leftChild);
             dealNode(node);
@@ -93,9 +93,9 @@ public class Traversal {
      * 中序遍历，无递归
      * @param node
      */
-    private void inOrderNoRec(TreeNode node){
-        Stack<TreeNode> stack = new Stack();
-        TreeNode temp = node;
+    private void inOrderNoRec(BinaryTreeNode node){
+        Stack<BinaryTreeNode> stack = new Stack();
+        BinaryTreeNode temp = node;
         stack.push(temp);
         while (!stack.empty()){
             temp = stack.peek();
@@ -117,7 +117,7 @@ public class Traversal {
      * 后序递归遍历
      * @param node
      */
-    private void postOrder(TreeNode node){
+    private void postOrder(BinaryTreeNode node){
         if(null!=node){
             postOrder(node.leftChild);
             postOrder(node.rightChild);
@@ -130,10 +130,10 @@ public class Traversal {
      * 后序遍历，非递归
      * @param node
      */
-    private void postOrderNoRec(TreeNode node){
-        Stack<TreeNode> stack = new Stack<TreeNode>();
-        TreeNode cur = node;        //当前访问结点
-        TreeNode pre = node;        //上一个访问结点
+    private void postOrderNoRec(BinaryTreeNode node){
+        Stack<BinaryTreeNode> stack = new Stack<BinaryTreeNode>();
+        BinaryTreeNode cur = node;        //当前访问结点
+        BinaryTreeNode pre = node;        //上一个访问结点
         while(null!=cur||!stack.empty()){
             while(null!=cur){       //指向最左孩子
                 stack.push(cur);
@@ -157,10 +157,10 @@ public class Traversal {
      * 层次遍历
      * @param node
      */
-    private void levelOrder(TreeNode node){
+    private void levelOrder(BinaryTreeNode node){
         if(null!=node){
-            Queue<TreeNode> queue = new ArrayBlockingQueue<TreeNode>(16);
-            TreeNode temp = node;
+            Queue<BinaryTreeNode> queue = new ArrayBlockingQueue<BinaryTreeNode>(16);
+            BinaryTreeNode temp = node;
             queue.offer(temp);
             while(!queue.isEmpty()){
                 temp = queue.poll();
@@ -180,7 +180,7 @@ public class Traversal {
      * 处理结点
      * @param node
      */
-    private void dealNode(TreeNode node){
+    private void dealNode(BinaryTreeNode node){
         visit.visit(node);
     }
 }

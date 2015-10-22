@@ -1,7 +1,7 @@
 package com.lx.common.util;
 
-import com.lx.structure.tree.Tree;
-import com.lx.structure.tree.TreeNode;
+import com.lx.structure.tree.BinaryTree;
+import com.lx.structure.tree.BinaryTreeNode;
 
 import java.util.Random;
 
@@ -43,13 +43,27 @@ public class ArrayUtils {
 
 
     /**
+     * 打印二维数组
+     * @param arr
+     */
+    public static void printArr2D(int[][] arr){
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                System.out.print(arr[i][j]+",");
+            }
+            System.out.println();
+        }
+    }
+
+
+    /**
      * 生成一棵二叉树，值为int
      * @param depth  树深度
      * @param range  值范围
      * @return
      */
-    public static Tree createIntTree(int depth,int range){
-        Tree tree = new Tree();
+    public static BinaryTree createIntTree(int depth,int range){
+        BinaryTree tree = new BinaryTree();
         tree.root = createIntNode(depth,range);
         return tree;
     }
@@ -61,8 +75,8 @@ public class ArrayUtils {
      * @param range
      * @return
      */
-    private static TreeNode createIntNode(int depth,int range){
-        TreeNode node = new TreeNode(random.nextInt(range));
+    private static BinaryTreeNode createIntNode(int depth,int range){
+        BinaryTreeNode node = new BinaryTreeNode(random.nextInt(range));
         if(depth==1){
             node.leftChild = null;
             node.rightChild = null;
