@@ -2,10 +2,14 @@ package com.lx.common.main;
 
 
 import com.lx.common.util.ArrayUtils;
+import com.lx.javas.rpc.client.ProxyClient;
+import com.lx.javas.rpc.client.RemoteService;
+import com.lx.javas.rpc.server.ProxyServer;
 import com.lx.structure.graph.*;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Function;
 
 /**
  * 运行入口
@@ -17,7 +21,20 @@ public class MainClass {
 	 * @param args
 	 */
 	public static void main(String[] args) throws Exception{
-        testGraph();
+        //startServer();
+        //startClient();
+        Function<String,Integer> function = Integer::valueOf;
+        System.out.println(function.apply("123"));
+    }
+
+    private static void startClient(){
+        RemoteService service = (RemoteService) ProxyClient.getProxy(RemoteService.class);
+        System.out.println(service.call("Tom"));
+    }
+
+    private static void startServer(){
+        ProxyServer server = new ProxyServer();
+        server.startService();
     }
 
 
@@ -78,7 +95,7 @@ public class MainClass {
         Path[][] paths = path.floyd(graph);
         for (int i = 0; i < paths.length; i++) {
             for (int j = 0; j < paths[i].length; j++) {
-                //System.out.println(paths[i][j]);
+                System.out.println(paths[i][j]);
             }
         }
     }

@@ -1,6 +1,6 @@
 package com.lx.structure.graph;
 
-import com.lx.common.Constant.Constant;
+import com.lx.common.constant.Constant;
 
 /**
  * 最短路径
