@@ -1,9 +1,17 @@
 package com.lx.javas.rpc.client;
 
 /**
- * 远程服务接口
- * Created by Administrator on 2015/10/26.
+ * 远程过程调用接口
+ * Created by lx on 2016/4/26.
  */
 public interface RemoteService {
-    String call(String param);
+
+
+    /**
+     * 远程调用方法
+     * @param param
+     * @return
+     * @throws Exception
+     */
+    String call(String param) throws Exception;
 }

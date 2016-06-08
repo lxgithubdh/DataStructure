@@ -7,14 +7,18 @@ import java.net.Socket;
  * 服务线程
  * Created by lx on 2015/10/26.
  */
-public class ServiceThread extends Thread{
+public class ServiceThread implements Runnable{
 
-    //被服务socket
+    //请求服务socket
     private Socket socket;
+    //具体服务
+    private IService service;
 
 
-    public ServiceThread(Socket s){
-        this.socket = s;
+    public ServiceThread(Socket socket){
+        this.socket = socket;
+        this.service = ServiceFactory.newCommonService();
+        System.out.println("Thread init ..." + super.toString());
     }
 
 
@@ -28,17 +32,32 @@ public class ServiceThread extends Thread{
         OutputStream os = null;
         BufferedWriter writer = null;
         try {
+            //打开输入输出流
             is = socket.getInputStream();
             reader = new BufferedReader(new InputStreamReader(is));
-            String param = reader.readLine();
-            String result = doService(param);
             os = socket.getOutputStream();
             writer = new BufferedWriter(new OutputStreamWriter(os));
-            writer.write(result);       //输出到客户端
-            writer.flush();
+            while(true){
+                String param = reader.readLine();
+                System.out.println("Thread receive :" + param);
+
+                if(param.equals("close")){
+                    System.out.println("Thread close ...");
+                    break;
+                }
+
+
+                String result = doService(param);
+                System.out.println("Thread respond :" + result);
+
+
+                writer.write(result + "\n");       //输出到客户端
+                writer.flush();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
+            //关闭输入输出流
             try{
                 if(null!=is){
                     is.close();
@@ -60,7 +79,12 @@ public class ServiceThread extends Thread{
     }
 
 
+    /**
+     * 服务方法
+     * @param param
+     * @return
+     */
     private String doService(String param){
-        return "Hello " + param;
+        return service.service(param);
     }
 }

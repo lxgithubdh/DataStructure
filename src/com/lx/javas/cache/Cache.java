@@ -12,12 +12,12 @@ public class Cache<K,V> {
     //存储缓存信息
     private HashMap<K,ValueObject<V>> map;
     //缓存容量
-    private int capactiy = 0;
+    private int capacity = 0;
 
 
     public Cache(int capacity){
-        this.capactiy = (int)((capacity>16?capacity:16)*0.9);
-        map = new HashMap<K,ValueObject<V>>(capacity,1);
+        this.capacity = (int)((capacity>16?capacity:16)*0.9);
+        map = new HashMap<>(capacity,1);
     }
 
 
@@ -27,7 +27,7 @@ public class Cache<K,V> {
      * @param value
      */
     public void put(K key,V value){
-        if(map.size()>capactiy){
+        if(map.size()>capacity){
             clean();
         }
         synchronized (map){

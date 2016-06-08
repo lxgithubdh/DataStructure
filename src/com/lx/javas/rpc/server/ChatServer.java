@@ -10,17 +10,20 @@ import java.net.Socket;
  * 代理服务器
  * Created by lx on 2015/10/26.
  */
-public class ProxyServer {
+public class ChatServer {
 
 
     //服务器socket
     private ServerSocket server;
     //线程池
     private ThreadPool pool;
+    //聊天室
+    private ChatRoom room;
 
 
-    public ProxyServer(){
+    public ChatServer(){
         pool = new ThreadPool();
+        room = new ChatRoom();
         init();
     }
 
@@ -30,16 +33,18 @@ public class ProxyServer {
      */
     public void startService(){
         while(true){
-            Socket socket = null;
+            Member member = null;
             try {
-                socket = server.accept();  //获取连接的socket
+                Socket socket = server.accept();  //获取连接的socket
                 System.out.println("Server accept " +
                         socket.getInetAddress()+":"+socket.getPort());
+                member = new Member(socket);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            pool.execute(new ServiceThread(socket));   //将socket委托线程处理
-            System.out.println("Server thread start ...");
+
+            member.registerRoom(room);
+            pool.execute(member);
         }
     }
 
